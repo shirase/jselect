@@ -4,10 +4,7 @@
             autocomplete:false,
             autocomplete_min:3,
             autocomplete_timeout:300,
-            addclass:'',
-            btnimg:'',
-            showtag:'input',
-            onchange:null
+            displayTag:'input'
         };
 
         $.extend(settings, option);
@@ -350,10 +347,6 @@
 
                         makeLabel();
 
-                        if(settings['onchange']) {
-                            var fn = settings['onchange'];
-                            fn(element);
-                        }
                         element.trigger('change');
                     });
 
@@ -373,10 +366,6 @@
 
                         makeLabel();
 
-                        if(settings['onchange']) {
-                            var fn = settings['onchange'];
-                            fn(element);
-                        }
                         element.trigger('change');
                     });
 
@@ -389,10 +378,6 @@
                         checkbox.prop('checked', !checkbox.is(':checked'));
                         lastoption = null;
 
-                        if(settings['onchange']) {
-                            var fn = settings['onchange'];
-                            fn(element);
-                        }
                         checkbox.trigger('change');
                     });
                 } else {
@@ -407,10 +392,6 @@
                         lastoption = null;
                         makeLabel(true);
 
-                        if(settings['onchange']) {
-                            var fn = settings['onchange'];
-                            fn(element);
-                        }
                         element.trigger('change');
 
                         widget.close();
@@ -432,10 +413,10 @@
 
                 inputCnt = $('<div class="jselect-ipt" />');
 
-                if(settings['showtag']=='input') {
+                if(settings['displayTag']=='input') {
                     input = $('<input type="text" />');
                 }
-                if(settings['showtag']=='span') {
+                if(settings['displayTag']=='span') {
                     span = $('<span />');
                 }
 
@@ -481,9 +462,6 @@
             }
 
             jselect.css({'position':'relative', 'width':width});
-            if(settings['addclass']) {
-                jselect.addClass(settings['addclass']);
-            }
             jselect.data('select', fakeselect);
 
             if(element.css('margin')) {
@@ -492,10 +470,6 @@
 
             if(element.css('float')) {
                 jselect.css('float', element.css('float'));
-            }
-
-            if(settings['btnimg']) {
-                button.css('backgroundImage', 'url('+settings['btnimg']+')');
             }
 
             var options = $('<div class="jselect-data" />').css({'position':'absolute', 'display':'none'}).appendTo(jselect);
@@ -594,11 +568,6 @@
                         if(label && !input.val()) {
                             label.show();
                         }
-
-                        if(settings['onchange']) {
-                            var fn = settings['onchange'];
-                            fn(element);
-                        }
                     }
                 });
 
@@ -621,4 +590,4 @@
             }
         });
     }
-})(jQuery);
+})(jQuery)
