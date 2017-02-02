@@ -1,0 +1,17 @@
+{
+  "name": "jselect",
+  "homepage": "https://github.com/shirase/jselect",
+  "authors": [
+    "shirase <shirase55@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
