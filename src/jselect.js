@@ -28,6 +28,7 @@
             var fn_key = function(event) {
                 if(disabled) return;
 
+                var active;
                 switch(event.which) {
                     case 27: // ESCAPE
                         event.preventDefault();
@@ -36,7 +37,7 @@
                     case 13: // ENTER
                         event.preventDefault();
                         options.find('.option.active.disabled').removeClass('active');
-                        var active = options.find('.option.active').first();
+                        active = options.find('.option.active').first();
                         if(active.length) {
                             active.trigger('click');
                         }
@@ -45,7 +46,7 @@
                     case 38: // UP
                         event.preventDefault();
                         options.find('.option.active.disabled').removeClass('active');
-                        var active = options.find('.option.active');
+                        active = options.find('.option.active');
                         if(active.length>1) {
                             active = active.removeClass('active').first();
                         }
@@ -59,7 +60,7 @@
                     case 40: // DOWN
                         event.preventDefault();
                         options.find('.option.active.disabled').removeClass('active');
-                        var active = options.find('.option.active');
+                        active = options.find('.option.active');
                         if(active.length>1) {
                             active = active.removeClass('active').first();
                         }
@@ -71,7 +72,7 @@
                         }
                         break;
                 }
-            }
+            };
 
             var hider_click = function(event) {
                 var e = $(event.target).closest('.jselect');
@@ -199,7 +200,7 @@
                         }
                     }
                 }
-            }
+            };
 
             if(element.data('jselect')) return;
             element.data('jselect', widget);
@@ -230,11 +231,10 @@
                         widget.load(data);
 
                         var i = 0;
-                        var key = null;
                         for(var key in data) {
                             i++;
                             if(i>1) {
-                                key = null
+                                key = null;
                                 break;
                             }
                         }
