@@ -4,6 +4,7 @@
             autocomplete:false,
             autocomplete_min:3,
             autocomplete_timeout:300,
+            multiselect_all: true,
             displayTag:'input'
         };
 
@@ -489,10 +490,10 @@
                 opt.appendTo(options);
             });
 
-            if(multiselect) {
-                /*var $option = $('<div class="option all" />').html('Все');
+            if(multiselect && settings.multiselect_all) {
+                var $option = $('<div class="option all" />');
                 $option.prepend($('<input type="checkbox">').prop('checked', false));
-                $option.prependTo(options);*/
+                $option.prependTo(options);
             }
 
             makeLabel(true);
