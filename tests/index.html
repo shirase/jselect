@@ -46,7 +46,8 @@
             margin: 0;
             padding: 0;
             border: none;
-            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAHCAYAAAA4R3wZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHtJREFUeNpiFIjp12ZgYDgKxPwMxIE1QBzB+P//fwbB2AnqQM5JIjSDNb1fXPCXCcQDMm4CKVMg/kiMJhCHCSYKFLgNpIxxaAZpCodpQtEI1XwXSBkC8Tssmv4hqwX7ER0A/SwPpM4B8T5smnBqhGoWA1JvsGkCAYAAAwCK2jUIQzJnogAAAABJRU5ErkJggg==') center center no-repeat;
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzODIuNjA5MjggMTcyLjYwNTY5IiBoZWlnaHQ9IjE4NC4xMTMiIHdpZHRoPSI0MDguMTE3Ij48cGF0aCBkPSJNMS4yOTYgMS45MzRsMzgwLTEuNDMtMTkxLjQyOSAxNzEuNDN6IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=) center center no-repeat;
+            background-size: 50% 50%;
             outline: none;
         }
 
@@ -121,7 +122,7 @@
 
     <script>
         $(function() {
-            $('select').jselect();
+            $('select').jselect({autocomplete:true});
         });
     </script>
 </div>
