@@ -4,8 +4,7 @@
             autocomplete:false,
             autocomplete_min:3,
             autocomplete_timeout:300,
-            multiselect_all: true,
-            displayTag:'input'
+            multiselect_all: true
         };
 
         $.extend(settings, option);
@@ -214,7 +213,7 @@
                 autocomplete_lastquery = q;
 
                 if(label) {
-                    if(!q && jselect.find('.jselect-data').is(':hidden')) {
+                    if(!q && jselect.find('.jselect-options').is(':hidden')) {
                         label.show();
                     } else {
                         label.hide();
@@ -222,7 +221,7 @@
                 }
 
                 if(!q || q.length<settings['autocomplete_min']) {
-                    jselect.find('.jselect-data .option').show();
+                    jselect.find('.jselect-options .option').show();
                     return;
                 }
 
@@ -248,7 +247,7 @@
 
                     var re = new RegExp(q, 'i');
 
-                    jselect.find('.jselect-data').find('.option').each(function() {
+                    jselect.find('.jselect-options').find('.option').each(function() {
                         var option = $(this);
                         var text = option.html();
                         if(text.search(re)!=-1) {
@@ -260,7 +259,7 @@
 
                     widget.open();
 
-                    /*var one = jselect.find('.jselect-data').show().find('.option:visible');
+                    /*var one = jselect.find('.jselect-options').show().find('.option:visible');
                     if(one.length == 1) {
                         one.data('option').prop('selected', true);
                         makeLabel(true);
@@ -305,8 +304,9 @@
                         }
                     });
 
-                    if(input) input.val(title.join(', '));
-                    if(span) span.html(title.join(', '));
+                    var t = title.join(', ');
+                    if(input) input.val(t);
+                    if(span) span.html(t ? t : '&nbsp;');
                 } else {
                     var selected = element.find('option:selected');
                     if(!selected.length || selected.data('$').is('.disabled')) {
@@ -319,7 +319,7 @@
                     if(selected && selected.length) {
                         if(!settings['autocomplete'] || force) {
                             if(input) input.val(selected.text());
-                            if(span) span.html(selected.html());
+                            if(span) span.html(selected.html() ? selected.html() : '&nbsp;');
                         }
                     }
                 }
@@ -360,7 +360,7 @@
                         }
 
                         if(multiselect && !checkbox.is(':checked')) {
-                            checkbox.closest('.jselect-data').find('.all input').prop('checked', false);
+                            checkbox.closest('.jselect-options').find('.all input').prop('checked', false);
                         }
 
                         checkbox.closest('.option').data('option').prop('selected', checkbox.is(':checked'));
@@ -412,16 +412,14 @@
             if(orgType=='select') {
                 jselect = $('<div class="jselect" />');
 
-                inputCnt = $('<div class="jselect-ipt" />');
+                inputCnt = $('<div class="jselect-container" />');
+                input = $('<input type="text" class="jselect-input" />');
 
-                if(settings['displayTag']=='input') {
-                    input = $('<input type="text" />');
-                }
-                if(settings['displayTag']=='span') {
-                    span = $('<span />');
+                if(multiselect && settings.autocomplete) {
+                    input.attr('readonly', true);
                 }
 
-                var button = $('<button type="button" tabindex="-1" />').css({'cursor':'pointer'});
+                var button = $('<button type="button" tabindex="-1" class="jselect-button" />').css({'cursor':'pointer'});
                 if(input) inputCnt.append(input);
                 if(span) inputCnt.append(span);
                 inputCnt.append(button);
@@ -434,6 +432,7 @@
                 jselect = inputCnt.wrap('<div class="jselect" />').parent();
             }
 
+            var autoCompleteInput = input;
             widget.$ = jselect;
 
             var width = element.outerWidth();
@@ -441,7 +440,7 @@
             var placeholder = element.attr('placeholder');
             var label;
             if(placeholder && input) {
-                label = $('<label tabindex="-1" />').hide().html(placeholder);
+                label = $('<span tabindex="-1" class="jselect-label" />').hide().html(placeholder);
                 inputCnt.append(label);
             }
 
@@ -462,7 +461,7 @@
                 }
             }
 
-            input.css('width', width);
+            jselect.css('min-width', width);
             jselect.data('select', fakeselect);
 
             if(element.css('margin')) {
@@ -473,7 +472,7 @@
                 jselect.css('float', element.css('float'));
             }
 
-            var options = $('<div class="jselect-data" />').css({'position':'absolute', 'display':'none'}).appendTo(jselect);
+            var options = $('<div class="jselect-options" />').css({'position':'absolute', 'display':'none'}).appendTo(jselect);
 
             element.find('option').each(function() {
                 var option = $(this);
@@ -497,6 +496,10 @@
                 var $option = $('<div class="option all" />');
                 $option.prepend($('<input type="checkbox">').prop('checked', false));
                 $option.prependTo(options);
+            }
+
+            if(settings['autocomplete'] && multiselect) {
+                autoCompleteInput = $('<input class="jselect-autocomlete" />').prependTo(options);
             }
 
             makeLabel(true);
@@ -560,8 +563,8 @@
                 }
             }
 
-            if(settings['autocomplete'] && input) {
-                input.on('focusout', function() {
+            if(settings['autocomplete'] && autoCompleteInput) {
+                autoCompleteInput.on('focusout', function() {
                     if(disabled) return;
 
                     var selected = element.find('option:selected');
@@ -569,24 +572,24 @@
                         if(input) input.val(selected.text());
                         if(span) span.html(selected.html());
 
-                        if(label && !input.val()) {
+                        if(label && !autoCompleteInput.val()) {
                             label.show();
                         }
                     }
                 });
 
-                input.on('keyup', function() {
+                autoCompleteInput.on('keyup', function() {
                     if(disabled) return;
 
                     setTimeout(function() {
-                        autocomplete(input.val());
+                        autocomplete(autoCompleteInput.val());
                     }, 10)
                 });
-                input.on('paste', function() {
+                autoCompleteInput.on('paste', function() {
                     if(disabled) return;
 
                     setTimeout(function() {
-                        autocomplete(input.val());
+                        autocomplete(autoCompleteInput.val());
                     }, 10)
                 });
             } else {

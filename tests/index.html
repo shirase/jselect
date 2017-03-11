@@ -17,16 +17,18 @@
 
         .jselect {
             display: inline-block;
+            vertical-align: top;
         }
 
-        .jselect-ipt {
+        .jselect-container {
             position: relative;
             cursor: pointer;
             padding-right: 32px;
             border: 1px solid gray;
         }
 
-        .jselect-ipt input {
+        .jselect-input {
+            display: block;
             max-width: inherit;
             margin: 0;
             padding: 8px;
@@ -34,9 +36,14 @@
             box-sizing: border-box;
             border: none;
             background: none;
+            outline: none;
+            white-space: nowrap;
+            overflow: hidden;
+            line-height: normal;
         }
 
-        .jselect-ipt button {
+        .jselect-button {
+            display: block;
             position: absolute;
             top: 0;
             right: 0;
@@ -51,7 +58,7 @@
             outline: none;
         }
 
-        .jselect-ipt label {
+        .jselect-label {
             display: block;
             position: absolute;
             top: 0;
@@ -66,37 +73,47 @@
             outline: none;
         }
 
-        .jselect-data {
+        .jselect-options {
             z-index: 1;
             border: 1px solid gray;
             border-radius: 4px;
             background: #fff;
             max-width: 100%;
             overflow: hidden;
+            box-sizing: border-box;
+            padding: 8px;
         }
 
-        .jselect-data .option {
+        .jselect-autocomlete {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px;
+            margin-bottom: 8px;
+            outline: none;
+        }
+
+        .jselect-options .option {
             min-height: 15px;
             margin: 2px 1px;
-            padding: 3px 10px;
-            padding-right: 30px;
+            padding: 3px;
             cursor: pointer;
             white-space: nowrap;
         }
 
-        .jselect-data .option input {
+        .jselect-options .option input {
             margin-right: 5px;
         }
 
-        .jselect-data .option:hover {
+        .jselect-options .option:hover {
             background: #faf7c1 !important;
         }
 
-        .jselect-data .option.active {
+        .jselect-options .option.active {
             background: #faf7c1 !important;
         }
 
-        .jselect-data .option.disabled {
+        .jselect-options .option.disabled {
             opacity: .5;
             filter: alpha(opacity=50);
         }
