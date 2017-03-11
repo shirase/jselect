@@ -462,7 +462,7 @@
                 }
             }
 
-            jselect.css({'position':'relative', 'width':width});
+            input.css('width', width);
             jselect.data('select', fakeselect);
 
             if(element.css('margin')) {
@@ -481,6 +481,9 @@
                 option.data('$', opt);
                 opt.data('value', option.attr('value')).data('option', option).html(option.html());
                 var style = option.data('style');
+                if(option.prop('disabled')) {
+                    opt.addClass('disabled');
+                }
                 if(style) {
                     opt.css(style);
                 }
