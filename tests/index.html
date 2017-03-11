@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jselect tests</title>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../src/jselect.js"></script>
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            min-height: 100%;
+        }
+
+        .jselect {
+            display: inline-block;
+        }
+
+        .jselect-ipt {
+            position: relative;
+            cursor: pointer;
+            padding-right: 32px;
+            border: 1px solid gray;
+        }
+
+        .jselect-ipt input {
+            max-width: inherit;
+            margin: 0;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            background: none;
+        }
+
+        .jselect-ipt button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            box-sizing: border-box;
+            width: 32px;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAHCAYAAAA4R3wZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHtJREFUeNpiFIjp12ZgYDgKxPwMxIE1QBzB+P//fwbB2AnqQM5JIjSDNb1fXPCXCcQDMm4CKVMg/kiMJhCHCSYKFLgNpIxxaAZpCodpQtEI1XwXSBkC8Tssmv4hqwX7ER0A/SwPpM4B8T5smnBqhGoWA1JvsGkCAYAAAwCK2jUIQzJnogAAAABJRU5ErkJggg==') center center no-repeat;
+            outline: none;
+        }
+
+        .jselect-ipt label {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 8px;
+            line-height: 1;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .jselect-data {
+            z-index: 1;
+            border: 1px solid gray;
+            border-radius: 4px;
+            background: #fff;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .jselect-data .option {
+            min-height: 15px;
+            margin: 2px 1px;
+            padding: 3px 10px;
+            padding-right: 30px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .jselect-data .option input {
+            margin-right: 5px;
+        }
+
+        .jselect-data .option:hover {
+            background: #faf7c1 !important;
+        }
+
+        .jselect-data .option.active {
+            background: #faf7c1 !important;
+        }
+
+        .jselect-data .option.disabled {
+            opacity: .5;
+            filter: alpha(opacity=50);
+        }
+
+        .jselect.disabled {
+            opacity: .8;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <select style="max-width: 300px">
+        <option value="0">-</option>
+        <option value="1">Value 1</option>
+        <option value="2">Long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text</option>
+        <option value="3" disabled>Disabled</option>
+    </select>
+    <select style="max-width: 300px" multiple>
+        <option value="1">Value 1</option>
+        <option value="2">Long text long text long text long text long text long text long text long text long text long text long text long text long text long text long text</option>
+        <option value="3" disabled>Disabled</option>
+    </select>
+
+    <script>
+        $(function() {
+            $('select').jselect();
+        });
+    </script>
+</div>
+</body>
+</html>
