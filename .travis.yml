@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "6"
+
+before_script:
+  - npm install static-server
+  - static-server -p8080 > /dev/null 2>&1 &
+  - sleep 3
+
+script:
+  - phantomjs http://localhost:8080/tests/index.html
