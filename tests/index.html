@@ -138,8 +138,58 @@
     </select>
 
     <script>
-        $(function() {
+        $(function () {
             $('select').jselect({autocomplete:true});
+        });
+    </script>
+
+    <!-- Tests -->
+    <div id="mocha"></div>
+    <link rel="stylesheet" type="text/css" href="../bower_components/mocha/mocha.css" />
+    <script src="../bower_components/mocha/mocha.js"></script>
+    <script src="../bower_components/chai/chai.js"></script>
+    <script src="../bower_components/chai-jquery/chai-jquery.js"></script>
+    <script>
+        mocha.setup('bdd');
+        mocha.checkLeaks();
+        mocha.globals(['jQuery']);
+
+        var expect = chai.expect;
+
+        $(function() {
+            describe("jselect", function() {
+                it("init", function() {
+                    expect($('.jselect')).exist;
+                    expect($('select')).hidden;
+                    expect($('.jselect:first .jselect-options')).hidden;
+                });
+                it("open", function() {
+                    $('.jselect:first .jselect-button').trigger('click');
+                    expect($('.jselect:first .jselect-options')).visible;
+                });
+                it("select", function() {
+                    $('.jselect:first .jselect-options .option:nth-child(2)').trigger('click');
+                    expect($('.jselect:first .jselect-options')).hidden;
+                    expect($('.jselect:first').prev('select')).value('1');
+                });
+                it("autocomplete", function() {
+                    $('.jselect:first .jselect-input').val('Long').trigger('keyup');
+                    setTimeout(function() {
+                        expect($('.jselect:first .jselect-options')).visible;
+                        console.log($('.jselect:first .jselect-options .option:visible:first').length);
+                        $('.jselect:first .jselect-options .option:visible:first').trigger('click');
+                        expect($('.jselect:first').prev('select')).value('2');
+                    }, 500);
+                });
+                it("close", function() {
+                    $('.jselect:first .jselect-options .option:nth-child(1)').trigger('click');
+                    expect($('.jselect:first .jselect-options')).hidden;
+                    expect($('.jselect:first').prev('select')).value('0');
+                });
+            });
+
+            if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+            else { mocha.run(); }
         });
     </script>
 </div>

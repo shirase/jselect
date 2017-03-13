@@ -16,5 +16,10 @@
   ],
   "dependencies": {
     "jquery": ">2"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.1"
   }
 }
