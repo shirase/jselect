@@ -3,9 +3,8 @@ node_js:
   - "6"
 
 before_script:
-  - npm install static-server
-  - static-server -p8080 > /dev/null 2>&1 &
-  - sleep 3
+  - npm install bower -g
+  - bower update
 
 script:
-  - phantomjs http://localhost:8080/tests/index.html
+  - phantomjs tests/index.html
